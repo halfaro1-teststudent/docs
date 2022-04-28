@@ -58,7 +58,7 @@ for (const file of articleFiles) {
 
   // parse the frontmatter
   // const { data } = parse(fileContents)
-  const { data } = parse(await readFileSync(filename, 'utf8'))
+  const { data } = parse(await readFileSync(file.filename, 'utf8'))
   core.info('File contents: ' + JSON.stringify(data, null, 2))
 
   let contentCell
