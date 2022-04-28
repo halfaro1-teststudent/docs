@@ -61,9 +61,7 @@ for (const file of articleFiles) {
   // const { data } = parse(await readFileSync(file.filename, 'utf8'))
   core.info(`Front matter: ${JSON.stringify(data,null,3)}`)
 
-  let contentCell
-  let previewCell
-  let prodCell = ''
+  let contentCell,previewCell,prodCell = ''
 
   if (file.status === 'added') contentCell = `New file: `
   contentCell += `[\`${fileName}\`](${sourceUrl})`
