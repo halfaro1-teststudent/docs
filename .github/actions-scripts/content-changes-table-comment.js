@@ -21,7 +21,7 @@ if (!APP_URL) {
   throw new Error(`APP_URL environment variable not set`)
 }
 
-const PROD_URL = 'https://docs.github.com/'
+const PROD_URL = 'https://docs.github.com'
 const octokit = github.getOctokit(GITHUB_TOKEN)
 
 const response = await octokit.rest.repos.compareCommitsWithBasehead({
