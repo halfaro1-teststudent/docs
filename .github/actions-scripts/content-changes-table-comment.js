@@ -75,7 +75,7 @@ for (const file of articleFiles) {
 
     if (currentApplicableVersions.length === 1) {
       // for fpt, ghec, and ghae
-      if (currentApplicableVersions === nonEnterpriseDefaultVersion) {
+      if (currentApplicableVersions == nonEnterpriseDefaultVersion) {
         // omit version from fpt url
         previewCell += `[${version}](${APP_URL}/${fileUrl})`
         prodCell += `[${version}](${PROD_URL}/${fileUrl})`
