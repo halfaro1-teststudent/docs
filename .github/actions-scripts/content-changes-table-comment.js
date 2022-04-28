@@ -47,7 +47,7 @@ for (const file of articleFiles) {
 
   // get the file contents and decode them
   // TODO: look into whether we need this API call
-  const fileContents = getContents(
+  const fileContents = await getContents(
     context.repo.owner,
     context.payload.repository.name,
     context.payload.pull_request.head.ref,
