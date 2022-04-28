@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import * as github from '@actions/github'
-import { setOutput } from '@actions/core'
-const core = require('@actions/core')
+// import { setOutput } from '@actions/core'
+import * as core from '@actions/core'
 
 // import { getContents } from '../../script/helpers/git-utils'
 import parse from '../../lib/read-frontmatter.js'
@@ -102,4 +102,4 @@ for (const file of articleFiles) {
   markdownTable += `| ${contentCell} | ${previewCell} | ${prodCell} | |\n`
 }
 
-setOutput('changesTable', markdownTable)
+core.setOutput('changesTable', markdownTable)
