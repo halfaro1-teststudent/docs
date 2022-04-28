@@ -5,8 +5,8 @@ import * as github from '@actions/github'
 import * as core from '@actions/core'
 import { readFileSync } from 'fs';
 
-// import { getContents } from '../../script/helpers/git-utils'
-import parse from '../../lib/read-frontmatter.js'
+import { getContents } from '../../script/helpers/git-utils'
+// import parse from '../../lib/read-frontmatter.js'
 import getApplicableVersions from '../../lib/get-applicable-versions.js'
 import nonEnterpriseDefaultVersion from '../../lib/non-enterprise-default-version.js'
 
@@ -47,18 +47,18 @@ for (const file of articleFiles) {
 
   // get the file contents and decode them
   // TODO: look into whether we need this API call
-  // const fileContents = getContents(
-  //   context.repo.owner,
-  //   context.payload.repository.name,
-  //   context.payload.pull_request.head.ref,
-  //   file.filename
-  // )
+  const fileContents = getContents(
+    context.repo.owner,
+    context.payload.repository.name,
+    context.payload.pull_request.head.ref,
+    file.filename
+  )
 
   core.info(`Processing file ${file.filename}`)
 
   // parse the frontmatter
-  // const { data } = parse(fileContents)
-  const { data } = parse(await readFileSync(file.filename, 'utf8'))
+  const { data } = parse(fileContents)
+  // const { data } = parse(await readFileSync(file.filename, 'utf8'))
   core.info('File contents: ' + JSON.stringify(data, null, 2))
 
   let contentCell
