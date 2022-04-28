@@ -5,8 +5,8 @@ import * as github from '@actions/github'
 import * as core from '@actions/core'
 import { readFileSync } from 'fs';
 
-import { getContents } from '../../script/helpers/git-utils'
-// import parse from '../../lib/read-frontmatter.js'
+import { getContents } from '../../script/helpers/git-utils.js'
+import parse from '../../lib/read-frontmatter.js'
 import getApplicableVersions from '../../lib/get-applicable-versions.js'
 import nonEnterpriseDefaultVersion from '../../lib/non-enterprise-default-version.js'
 
