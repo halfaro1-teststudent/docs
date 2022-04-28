@@ -77,12 +77,12 @@ for (const file of articleFiles) {
       // for fpt, ghec, and ghae
       if (currentApplicableVersions == nonEnterpriseDefaultVersion) {
         // omit version from fpt url
-        previewCell += `[${version}](${APP_URL}/${fileUrl})`
-        prodCell += `[${version}](${PROD_URL}/${fileUrl})`
+        previewCell += `[${version}](${APP_URL}/${fileUrl}) `
+        prodCell += `[${version}](${PROD_URL}/${fileUrl}) `
       } else {
         // for non-versioned releases (ghae, ghec) use full url
-        previewCell += `[${version}](${APP_URL}/${currentApplicableVersions}/${fileUrl})`
-        prodCell += `[${version}](${PROD_URL}/${currentApplicableVersions}/${fileUrl})`
+        previewCell += `[${version}](${APP_URL}/${currentApplicableVersions}/${fileUrl}) `
+        prodCell += `[${version}](${PROD_URL}/${currentApplicableVersions}/${fileUrl}) `
       }
     } else {
       // for ghes releases, link each version
@@ -91,7 +91,7 @@ for (const file of articleFiles) {
 
       previewCell += currentApplicableVersions.map(
         (version) =>
-          `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl})`
+          `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
       )
 
       prodCell += currentApplicableVersions.map(
