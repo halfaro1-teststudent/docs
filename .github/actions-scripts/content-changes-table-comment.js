@@ -54,12 +54,12 @@ for (const file of articleFiles) {
     file.filename
   )
 
-  core.info(`Processing file ${file.filename}`)
+  core.info(`Got the contents for ${file.filename}, they are: ${JSON.stringify(fileContents, null, 3)}`)
 
   // parse the frontmatter
   const { data } = parse(fileContents)
   // const { data } = parse(await readFileSync(file.filename, 'utf8'))
-  core.info('File contents: ' + JSON.stringify(data, null, 2))
+  core.info(`Front matter: ${JSON.stringify(data,null,3)}`)
 
   let contentCell
   let previewCell
