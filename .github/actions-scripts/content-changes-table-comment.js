@@ -3,7 +3,8 @@
 import * as github from '@actions/github'
 // import { setOutput } from '@actions/core'
 import * as core from '@actions/core'
-import { readfileSync } from 'fs'
+import { readFileSync } from 'fs';
+
 // import { getContents } from '../../script/helpers/git-utils'
 import parse from '../../lib/read-frontmatter.js'
 import getApplicableVersions from '../../lib/get-applicable-versions.js'
@@ -57,7 +58,7 @@ for (const file of articleFiles) {
 
   // parse the frontmatter
   // const { data } = parse(fileContents)
-  const { data } = parse(await readfileSync(filename, 'utf8'))
+  const { data } = parse(await readFileSync(filename, 'utf8'))
   core.info('File contents: ' + JSON.stringify(data, null, 2))
 
   let contentCell
