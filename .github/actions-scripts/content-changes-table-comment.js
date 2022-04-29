@@ -3,7 +3,8 @@
 import * as github from '@actions/github'
 // import { setOutput } from '@actions/core'
 import * as core from '@actions/core'
-import { readFileSync } from 'fs';
+// import { readFileSync } from 'fs'
+// import readFileAsync from '../../lib/readfile-async.js'
 
 import { getContents } from '../../script/helpers/git-utils.js'
 import parse from '../../lib/read-frontmatter.js'
@@ -37,8 +38,7 @@ let markdownTable =
 
 const pathPrefix = 'content/'
 const articleFiles = files.filter(
-  ({ filename }) =>
-    filename.startsWith(pathPrefix) && !filename.endsWith('/index.md')
+  ({ filename }) => filename.startsWith(pathPrefix) && !filename.endsWith('/index.md')
 )
 for (const file of articleFiles) {
   const sourceUrl = file.blob_url
@@ -54,16 +54,18 @@ for (const file of articleFiles) {
     file.filename
   )
 
-  core.info(`Got the contents for ${file.filename}, they are: ${JSON.stringify(fileContents, null, 3)}`)
+  core.info(
+    `Got the contents for ${file.filename}, they are: ${JSON.stringify(fileContents, null, 3)}`
+  )
 
   // parse the frontmatter
   const { data } = parse(fileContents)
   // const { data } = parse(await readFileSync(file.filename, 'utf8'))
-  core.info(`Front matter: ${JSON.stringify(data,null,3)}`)
+  core.info(`Front matter: ${JSON.stringify(data, null, 3)}`)
 
-  let contentCell = ''
-  let previewCell = ''
-  let prodCell = ''
+  let contentCell = '';
+    let previewCell = '';
+    let prodCell = ''
 
   if (file.status === 'added') contentCell = `New file: `
   contentCell += `[\`${fileName}\`](${sourceUrl})`
@@ -75,7 +77,7 @@ for (const file of articleFiles) {
 
     if (currentApplicableVersions.length === 1) {
       // for fpt, ghec, and ghae
-      if (currentApplicableVersions == nonEnterpriseDefaultVersion) {
+      if (currentApplicableVersions === nonEnterpriseDefaultVersion) {
         // omit version from fpt url
         previewCell += `[${version}](${APP_URL}/${fileUrl}) `
         prodCell += `[${version}](${PROD_URL}/${fileUrl}) `
@@ -89,15 +91,10 @@ for (const file of articleFiles) {
       previewCell += `${version}@ `
       prodCell += `${version}@ `
 
-      previewCell += currentApplicableVersions.map(
-        (version) =>
-          `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
-      )
-
-      prodCell += currentApplicableVersions.map(
-        (version) =>
-          `[${version.split('@')[1]}](${PROD_URL}/${version}/${fileUrl})`
-      )
+      currentApplicableVersions.forEach((version) => {
+        previewCell += `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
+        prodCell += `[${version.split('@')[1]}](${PROD_URL}/${version}/${fileUrl}) `
+      })
     }
   }
   markdownTable += `| ${contentCell} | ${previewCell} | ${prodCell} | |\n`
