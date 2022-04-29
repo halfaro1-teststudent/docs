@@ -76,7 +76,11 @@ for (const file of articleFiles) {
     })
 
     core.info(
-      `Applicable versions for ${version}: ${JSON.stringify(currentApplicableVersions, null, 3)}`
+      `Applicable versions for ${version}: ${JSON.stringify(
+        currentApplicableVersions.flat(),
+        null,
+        3
+      )}`
     )
     if (currentApplicableVersions.length === 1) {
       // for fpt, ghec, and ghae
