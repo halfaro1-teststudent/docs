@@ -91,6 +91,7 @@ for (const file of articleFiles) {
       previewCell += `${version}@ `
       prodCell += `${version}@ `
 
+      // foreach
       currentApplicableVersions.forEach((version) => {
         previewCell += `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
         prodCell += `[${version.split('@')[1]}](${PROD_URL}/${version}/${fileUrl}) `
