@@ -82,9 +82,10 @@ for (const file of articleFiles) {
         3
       )}`
     )
+    core.info(`The nonEnterpriseDefaultVersion is: ${nonEnterpriseDefaultVersion}`)
     if (currentApplicableVersions.length === 1) {
       // for fpt, ghec, and ghae
-      if (currentApplicableVersions === nonEnterpriseDefaultVersion) {
+      if (currentApplicableVersions.flat() === nonEnterpriseDefaultVersion) {
         // omit version from fpt url
         previewCell += `[${version}](${APP_URL}/${fileUrl}) `
         prodCell += `[${version}](${PROD_URL}/${fileUrl}) `
