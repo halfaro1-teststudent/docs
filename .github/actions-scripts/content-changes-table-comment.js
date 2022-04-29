@@ -84,6 +84,7 @@ for (const file of articleFiles) {
     )
     core.info(`The nonEnterpriseDefaultVersion is: ${nonEnterpriseDefaultVersion}`)
     if (currentApplicableVersions.length === 1) {
+      core.info(`flattened ${currentApplicableVersions} is ${currentApplicableVersions.flat()}`)
       // for fpt, ghec, and ghae
       if (currentApplicableVersions.flat() === nonEnterpriseDefaultVersion) {
         // omit version from fpt url
