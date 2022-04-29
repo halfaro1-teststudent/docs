@@ -12,7 +12,7 @@ topics:
 shortTitle: Set the default region
 ---
 
-You can manually select the region that your codespaces will be created in, allowing you to meet stringent security and compliance requirements. By default, your region is set automatically, based on your location.
+asdfsYou can manually select the region that your codespaces will be created in, allowing you to meet stringent security and compliance requirements. By default, your region is set automatically, based on your location.
 
 ## Setting your default region
 
