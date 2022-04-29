@@ -50,6 +50,7 @@ Once your codespace is created, your repository will be automatically cloned int
 ## Edit the application and view changes
 
 1. Switch back to your codespace and open the `haikus.json` file by double-clicking it in the File Explorer.
+dsfsdf
 
 2. Edit the `text` field of the first haiku to personalize the application with your own haiku.
 
