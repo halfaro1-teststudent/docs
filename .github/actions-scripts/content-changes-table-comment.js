@@ -75,18 +75,9 @@ for (const file of articleFiles) {
       [version]: data.versions[version],
     })
 
-    core.info(
-      `Applicable versions for ${version}: ${JSON.stringify(
-        currentApplicableVersions.flat(),
-        null,
-        3
-      )}`
-    )
-    core.info(`The nonEnterpriseDefaultVersion is: ${nonEnterpriseDefaultVersion}`)
     if (currentApplicableVersions.length === 1) {
-      core.info(`flattened ${currentApplicableVersions} is ${currentApplicableVersions.flat()}`)
       // for fpt, ghec, and ghae
-      if (currentApplicableVersions.flat() === nonEnterpriseDefaultVersion) {
+      if (currentApplicableVersions.toString() === nonEnterpriseDefaultVersion) {
         // omit version from fpt url
         previewCell += `[${version}](${APP_URL}/${fileUrl}) `
         prodCell += `[${version}](${PROD_URL}/${fileUrl}) `
