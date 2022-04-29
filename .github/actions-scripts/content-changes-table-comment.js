@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 
 import * as github from '@actions/github'
-// import { setOutput } from '@actions/core'
-import * as core from '@actions/core'
-// import { readFileSync } from 'fs'
-// import readFileAsync from '../../lib/readfile-async.js'
+import { setOutput } from '@actions/core'
 
-import { getContents } from '../../script/helpers/git-utils.js'
-import parse from '../../lib/read-frontmatter.js'
-import getApplicableVersions from '../../lib/get-applicable-versions.js'
-import nonEnterpriseDefaultVersion from '../../lib/non-enterprise-default-version.js'
+import { getContents } from '../../script/helpers/git-utils'
+import parse from '../../lib/read-frontmatter'
+import getApplicableVersions from '../../lib/get-applicable-versions'
+import nonEnterpriseDefaultVersion from '../../lib/non-enterprise-default-version'
 
 const { GITHUB_TOKEN, APP_URL } = process.env
 const context = github.context
@@ -46,22 +43,16 @@ for (const file of articleFiles) {
   const fileUrl = fileName.slice(0, fileName.lastIndexOf('.'))
 
   // get the file contents and decode them
-  // TODO: look into whether we need this API call
-  const fileContents = await getContents(
+  // this script is called from the main branch, so we need the API call to get the contents from the branch, instead
+  const fileContents = getContents(
     context.repo.owner,
     context.payload.repository.name,
     context.payload.pull_request.head.ref,
     file.filename
   )
 
-  core.info(
-    `Got the contents for ${file.filename}, they are: ${JSON.stringify(fileContents, null, 3)}`
-  )
-
   // parse the frontmatter
   const { data } = parse(fileContents)
-  // const { data } = parse(await readFileSync(file.filename, 'utf8'))
-  core.info(`Front matter: ${JSON.stringify(data, null, 3)}`)
 
   let contentCell = ''
   let previewCell = ''
@@ -79,19 +70,18 @@ for (const file of articleFiles) {
       // for fpt, ghec, and ghae
       if (currentApplicableVersions.toString() === nonEnterpriseDefaultVersion) {
         // omit version from fpt url
-        previewCell += `[${version}](${APP_URL}/${fileUrl}) `
-        prodCell += `[${version}](${PROD_URL}/${fileUrl}) `
+        previewCell += `[${version}](${APP_URL}/${fileUrl})`
+        prodCell += `[${version}](${PROD_URL}/${fileUrl})`
       } else {
         // for non-versioned releases (ghae, ghec) use full url
-        previewCell += `[${version}](${APP_URL}/${currentApplicableVersions}/${fileUrl}) `
-        prodCell += `[${version}](${PROD_URL}/${currentApplicableVersions}/${fileUrl}) `
+        previewCell += `[${version}](${APP_URL}/${currentApplicableVersions}/${fileUrl})`
+        prodCell += `[${version}](${PROD_URL}/${currentApplicableVersions}/${fileUrl})`
       }
     } else {
       // for ghes releases, link each version
       previewCell += `${version}@ `
       prodCell += `${version}@ `
 
-      // foreach
       currentApplicableVersions.forEach((version) => {
         previewCell += `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
         prodCell += `[${version.split('@')[1]}](${PROD_URL}/${version}/${fileUrl}) `
@@ -101,4 +91,4 @@ for (const file of articleFiles) {
   markdownTable += `| ${contentCell} | ${previewCell} | ${prodCell} | |\n`
 }
 
-core.setOutput('changesTable', markdownTable)
+setOutput('changesTable', markdownTable)
