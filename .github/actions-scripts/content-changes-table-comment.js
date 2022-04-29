@@ -63,9 +63,9 @@ for (const file of articleFiles) {
   // const { data } = parse(await readFileSync(file.filename, 'utf8'))
   core.info(`Front matter: ${JSON.stringify(data, null, 3)}`)
 
-  let contentCell = '';
-    let previewCell = '';
-    let prodCell = ''
+  let contentCell = ''
+  let previewCell = ''
+  let prodCell = ''
 
   if (file.status === 'added') contentCell = `New file: `
   contentCell += `[\`${fileName}\`](${sourceUrl})`
@@ -75,6 +75,9 @@ for (const file of articleFiles) {
       [version]: data.versions[version],
     })
 
+    core.info(
+      `Applicable versions for ${version}: ${JSON.stringify(currentApplicableVersions, null, 3)}`
+    )
     if (currentApplicableVersions.length === 1) {
       // for fpt, ghec, and ghae
       if (currentApplicableVersions === nonEnterpriseDefaultVersion) {
