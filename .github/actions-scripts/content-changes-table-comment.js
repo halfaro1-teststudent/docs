@@ -25,7 +25,7 @@ const octokit = github.getOctokit(GITHUB_TOKEN)
 const response = await octokit.rest.repos.compareCommitsWithBasehead({
   owner: context.repo.owner,
   repo: context.payload.repository.name,
-  basehead: `${context.payload.pull_request.base.ref}...${context.payload.pull_request.head.ref}`,
+  basehead: `${context.payload.pull_request.base.ref}...${context.payload.pull_request.head.label}`,
 })
 
 const { files } = response.data
@@ -83,7 +83,7 @@ for (const file of articleFiles) {
       prodCell += `${version}@ `
 
       currentApplicableVersions.forEach((version) => {
-        previewCell += `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl})`
+        previewCell += `[${version.split('@')[1]}](${APP_URL}/${version}/${fileUrl}) `
         prodCell += `[${version.split('@')[1]}](${PROD_URL}/${version}/${fileUrl}) `
       })
       previewCell += '<br>'
